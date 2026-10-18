@@ -1,6 +1,10 @@
-.claude/
-# Design-process files stay local; GitHub Pages would serve them publicly
-.impeccable/
-PRODUCT.md
-DESIGN.md
-CLAUDE.md
+# This folder holds private work too (outreach, leads, design notes).
+# Only the public website below is published to GitHub Pages; anything
+# else added to this folder stays local unless it is listed here.
+/*
+!/.gitignore
+!/.nojekyll
+!/index.html
+!/styles.css
+!/app.js
+!/assets/

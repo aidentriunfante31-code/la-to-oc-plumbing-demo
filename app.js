@@ -33,7 +33,9 @@
   if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const below = settles.filter(el => el.getBoundingClientRect().top > innerHeight);
     below.forEach(el => el.classList.add('pre'));
+    let soAlive = false;
     const so = new IntersectionObserver(entries => {
+      soAlive = true;
       entries.forEach(e => {
         if (!e.isIntersecting) return;
         const el = e.target;
@@ -44,7 +46,53 @@
       });
     }, { rootMargin: '0px 0px -8% 0px' });
     below.forEach(el => so.observe(el));
-    setTimeout(() => below.forEach(el => el.classList.remove('pre')), 4000);
+    setTimeout(() => { if (!soAlive) below.forEach(el => el.classList.remove('pre')); }, 2500);
+  }
+
+  /* ---------- Reading ribbon + tipped plate depth ---------- */
+  const ribbon = $('#ribbon');
+  const tipped = $('.tipped');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ticking = false;
+  const onScroll = () => {
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    ribbon.style.setProperty('--read', max > 0 ? Math.min(scrollY / max, 1).toFixed(4) : 0);
+    // The plate sits a little above the cover: it drifts slower than the page
+    if (!still && scrollY < innerHeight * 1.2) tipped.style.translate = `0 ${(-scrollY * 0.06).toFixed(1)}px`;
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+
+  /* ---------- Rules draw and lists arrive as each section comes in ----------
+     Everything is visible by default. Only parts below the fold are held back,
+     and a timer releases anything the observer never reaches. */
+  if ('IntersectionObserver' in window && !still) {
+    const below = el => el.getBoundingClientRect().top > innerHeight * 0.92;
+    const groups = [];
+    $$('.part-head, .toc, .qa').forEach(el => { if (below(el)) { el.classList.add('drawn-pre'); groups.push([el, () => el.classList.remove('drawn-pre')]); } });
+    $$('.toc ol').forEach(ol => {
+      if (!below(ol)) return;
+      [...ol.children].forEach((li, i) => li.style.setProperty('--i-delay', 120 + i * 70 + 'ms'));
+      ol.classList.add('list-pre');
+      groups.push([ol, () => ol.classList.remove('list-pre')]);
+    });
+    [$('.entries'), $('.steps')].forEach(list => {
+      [...list.children].forEach((li, i) => {
+        li.classList.add('rise');
+        li.style.setProperty('--i-delay', Math.min(i, 4) * 80 + 'ms');
+        if (below(li)) { li.classList.add('pre-rise'); groups.push([li, () => li.classList.remove('pre-rise')]); }
+      });
+    });
+    const release = new Map(groups);
+    let alive = false;
+    const go = new IntersectionObserver(entries => {
+      alive = true;
+      entries.forEach(e => { if (e.isIntersecting) { release.get(e.target)(); go.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    release.forEach((_, el) => go.observe(el));
+    // If the observer never runs (background tab, odd browser), show everything
+    setTimeout(() => { if (!alive) release.forEach(fn => fn()); }, 2500);
   }
 
   /* ---------- Only one answer open at a time ---------- */
