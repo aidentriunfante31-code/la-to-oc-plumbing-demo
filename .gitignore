@@ -1,1 +1,6 @@
 .claude/
+# Design-process files stay local; GitHub Pages would serve them publicly
+.impeccable/
+PRODUCT.md
+DESIGN.md
+CLAUDE.md
