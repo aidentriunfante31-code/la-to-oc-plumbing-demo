@@ -117,7 +117,10 @@
   }));
 
   const show = (key, on) => $(`.err[data-for="${key}"]`, form).classList.toggle('show', on);
-  const mark = (input, bad) => input.closest('.line').classList.toggle('bad', bad);
+  const mark = (input, bad) => {
+    input.closest('.line').classList.toggle('bad', bad);
+    input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+  };
   const rules = {
     zip: v => /^\d{5}$/.test(v),
     name: v => v.trim().length >= 2,
@@ -149,7 +152,11 @@
     });
     if (firstBad) { firstBad.focus(); return; }
 
-    // Demo only: nothing is sent anywhere.
+    // Spam trap filled in: a bot, so show nothing new and send nothing.
+    if (form.elements.company_website.value) return;
+
+    // Demo only: nothing is sent anywhere. At launch, post the form to the
+    // chosen form service here and show the receipt only once it accepts it.
     $('#rName').textContent = $('#name').value.trim().split(/\s+/)[0];
     $('#rPhone').textContent = $('#phone').value;
     $('#rWork').textContent = WORK[service.value];

@@ -8,9 +8,40 @@
 <title>L.A to O.C Plumbing Pro | Plumbers for Los Angeles & Orange County, open 24 hours</title>
 <meta name="description" content="Family-owned plumbing for homes and businesses in Los Angeles and Orange County. Drain cleaning, hydro-jetting, leak repair, water heaters and whole-home repiping. Open 24 hours. 5.0 on Google and Yelp.">
 <link rel="icon" href="assets/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..700&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://aidentriunfante31-code.github.io/la-to-oc-plumbing-demo/">
+<link rel="preload" href="assets/fonts/libre-caslon-display-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/libre-caslon-text-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Plumber",
+  "name": "L.A to O.C Plumbing Pro",
+  "description": "Family-owned plumbing for homes and businesses in Los Angeles and Orange County: drain cleaning, hydro-jetting, leak repair, water heaters and whole-home repiping.",
+  "url": "https://aidentriunfante31-code.github.io/la-to-oc-plumbing-demo/",
+  "image": "https://aidentriunfante31-code.github.io/la-to-oc-plumbing-demo/assets/logo.png",
+  "logo": "https://aidentriunfante31-code.github.io/la-to-oc-plumbing-demo/assets/logo.png",
+  "telephone": "+1-323-239-8505",
+  "contactPoint": [
+    {"@type": "ContactPoint", "telephone": "+1-323-239-8505", "contactType": "customer service", "areaServed": "Los Angeles County"},
+    {"@type": "ContactPoint", "telephone": "+1-714-805-3552", "contactType": "customer service", "areaServed": "Orange County"}
+  ],
+  "areaServed": [
+    {"@type": "AdministrativeArea", "name": "Los Angeles County, California"},
+    {"@type": "AdministrativeArea", "name": "Orange County, California"}
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "sameAs": [
+    "https://latoocplumbing.com/",
+    "https://m.yelp.com/biz/l-a-to-o-c-plumbing-pro-los-angeles-4",
+    "https://nextdoor.com/pages/la-to-oc-plumbing-pro-los-angeles-ca/"
+  ]
+}
+</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -88,7 +119,7 @@
 <figure class="tipped" id="plate-1">
   <div class="tipped-mat">
     <i class="pc tl" aria-hidden="true"></i><i class="pc tr" aria-hidden="true"></i><i class="pc bl" aria-hidden="true"></i><i class="pc br" aria-hidden="true"></i>
-    <img src="assets/hero-tech.webp" alt="Sewer inspection camera and drain machine set up on a front walkway" width="981" height="1262">
+    <img src="assets/hero-plate.jpg" alt="Sewer inspection camera and drain machine set up on a front walkway" width="1400" height="875" decoding="async">
   </div>
   <figcaption><b>Plate I.</b> Sewer camera and drain machine set up on a customer's walkway.</figcaption>
 </figure>
@@ -185,7 +216,7 @@
 
     <div class="plates">
       <figure class="plate plate-tall settle">
-        <div class="plate-mat"><img src="assets/job-sink.webp" alt="Armando working under a bathroom sink with a drain machine" class="crop-sink" loading="lazy"></div>
+        <div class="plate-mat"><img src="assets/job-sink.webp" alt="Armando working under a bathroom sink with a drain machine" class="crop-sink" loading="lazy" width="1955" height="1304"></div>
         <figcaption><b>Plate II.</b> A backed-up bathroom sink, cleared on a last-minute call. December 2024.<cite>Photo: Jonathan Leon, Google review</cite></figcaption>
       </figure>
 
@@ -295,7 +326,7 @@
           <label><input type="radio" name="service" value="commercial"><span>Commercial job</span></label>
           <label><input type="radio" name="service" value="other"><span>Something else</span></label>
         </div>
-        <p class="err" data-for="service">Choose the closest type of work.</p>
+        <p class="err" data-for="service" id="err-service" aria-live="polite">Choose the closest type of work.</p>
       </fieldset>
 
       <fieldset>
@@ -306,22 +337,24 @@
           <label><input type="radio" name="when" value="later"><span>Planning ahead</span></label>
         </div>
         <div class="line-row">
-          <label class="line"><span>ZIP code</span><input id="zip" name="zip" inputmode="numeric" maxlength="5" autocomplete="postal-code"></label>
+          <label class="line"><span>ZIP code</span><input id="zip" name="zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" aria-describedby="err-zip"></label>
           <label class="line"><span>Property</span>
             <select name="property"><option>Home</option><option>Rental</option><option>Business</option></select>
           </label>
         </div>
-        <p class="err" data-for="zip">Enter a 5-digit ZIP code.</p>
+        <p class="err" data-for="zip" id="err-zip" aria-live="polite">Enter a 5-digit ZIP code.</p>
       </fieldset>
 
       <fieldset>
         <legend><span>3</span> Who to call</legend>
         <div class="line-row">
-          <label class="line"><span>Name</span><input id="name" name="name" autocomplete="name"></label>
-          <label class="line"><span>Phone</span><input id="phone" name="phone" type="tel" autocomplete="tel"></label>
+          <label class="line"><span>Name</span><input id="name" name="name" autocomplete="name" aria-describedby="err-name"></label>
+          <label class="line"><span>Phone</span><input id="phone" name="phone" type="tel" autocomplete="tel" aria-describedby="err-phone"></label>
         </div>
-        <p class="err" data-for="name">Please write your name.</p>
-        <p class="err" data-for="phone">Enter a 10-digit phone number.</p>
+        <p class="err" data-for="name" id="err-name" aria-live="polite">Please write your name.</p>
+        <p class="err" data-for="phone" id="err-phone" aria-live="polite">Enter a 10-digit phone number.</p>
+        <!-- Spam trap: hidden from people; bots that fill it are ignored -->
+        <div class="trap" aria-hidden="true"><label>Leave this empty<input name="company_website" tabindex="-1" autocomplete="off"></label></div>
         <label class="line full"><span>What's happening (optional)</span><textarea name="notes" rows="2"></textarea></label>
       </fieldset>
 
